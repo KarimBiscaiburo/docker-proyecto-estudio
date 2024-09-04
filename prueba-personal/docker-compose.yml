@@ -1,0 +1,23 @@
+services:
+  # Nombramos uno de los servicios
+  frontend:
+    ports:
+      - "5173:5173"
+  # Nombramos uno de los servicios
+  backend:
+    build: .
+    ports:
+      - "3000:3000"
+  # Nombramos uno de los servicios
+  postgres:
+    # Indicamos sobre que imagen se va a construir este contenedor
+    image: postgres:12.20-bullseye
+    # Indicamos el puerto en donde queremos que mapee el puerto del contenedor (esto quiere decir que, el puerto que expone el contenedor va a ser expuesto en un puerto local)
+    ports:
+      # (puertoLocal:puertoDelContenedor)
+      # Sabemos que el puerto del contenedor es el que es porque va a ser el mismo que tendria si nosotros intalaramos las cosas localmente, es decir, si instalamos postres, por defecto va a utilizar el puerto 5432 de manera local, entonces en docker va a ser lo mismo pero dentro del contenedor
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=root
+      - POSTGRES_DB=db_prueba
